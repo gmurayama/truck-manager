@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 using Serilog;
 
 namespace TruckManager.Api
@@ -21,6 +22,10 @@ namespace TruckManager.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var databaseSettings = Configuration.GetSection("Database");
+            var client = new MongoClient(databaseSettings["ConnectionString"]);
+
+            services.AddScoped(x => client.GetDatabase(databaseSettings["DatabaseName"]));
             services.AddSingleton(x => Log.Logger);
         }
 
