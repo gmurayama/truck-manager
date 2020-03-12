@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
@@ -6,6 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Api\Api.csproj", "{ED0C478E-CDB0-4178-AB5B-6AD71B211F46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{A08359B2-3E13-4BBC-876F-BD308F270D72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "src\Persistence\Persistence.csproj", "{AF85E6EB-D2EB-498D-986F-FB01DD7ED466}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{1F2D8108-4E89-4B74-A384-FA7534254325}"
 EndProject
@@ -23,6 +25,10 @@ Global
 		{A08359B2-3E13-4BBC-876F-BD308F270D72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A08359B2-3E13-4BBC-876F-BD308F270D72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A08359B2-3E13-4BBC-876F-BD308F270D72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF85E6EB-D2EB-498D-986F-FB01DD7ED466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF85E6EB-D2EB-498D-986F-FB01DD7ED466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF85E6EB-D2EB-498D-986F-FB01DD7ED466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF85E6EB-D2EB-498D-986F-FB01DD7ED466}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F2D8108-4E89-4B74-A384-FA7534254325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F2D8108-4E89-4B74-A384-FA7534254325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F2D8108-4E89-4B74-A384-FA7534254325}.Release|Any CPU.ActiveCfg = Release|Any CPU
