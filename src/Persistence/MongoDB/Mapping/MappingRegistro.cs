@@ -15,7 +15,7 @@ namespace Persistence.MongoDB.Mapping
                 cm.AutoMap();
                 cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
                 cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
-                cm.MapMember(c => c.Motorista).SetSerializer(new StringSerializer(BsonType.ObjectId));
+                cm.MapMember(c => c.MotoristaId).SetSerializer(new StringSerializer(BsonType.ObjectId));
             });
         }
     }

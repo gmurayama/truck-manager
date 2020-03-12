@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.MongoDB;
 using Serilog;
+using TruckManager.Application.Persistence;
 
 namespace TruckManager.Api
 {
@@ -22,12 +23,6 @@ namespace TruckManager.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var databaseSettings = Configuration.GetSection("Database");
-            var databaseService = new DatabaseService(
-                    connectionString: databaseSettings["ConnectionString"],
-                    database: databaseSettings["DatabaseName"]
-            );
-
             services.Scan(scan => scan
                 .FromApplicationDependencies()
                 .AddClasses(classes => classes.Where(type => type.Name.Equals("QueryHandler")))
@@ -43,7 +38,12 @@ namespace TruckManager.Api
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 
-            services.AddScoped(x => databaseService.GetInstance());
+            var databaseSettings = Configuration.GetSection("Database");
+
+            services.AddSingleton<IMongoDBService>(x => new DatabaseService(
+                    connectionString: databaseSettings["ConnectionString"],
+                    database: databaseSettings["DatabaseName"]));
+
             services.AddSingleton(x => Log.Logger);
         }
 

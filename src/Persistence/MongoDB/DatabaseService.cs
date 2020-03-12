@@ -1,18 +1,18 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using Persistence.MongoDB.Mapping;
+using TruckManager.Application.Persistence;
 
 namespace Persistence.MongoDB
 {
-    public class DatabaseService
+    public class DatabaseService : IMongoDBService
     {
         private readonly IMongoClient _client;
-        private readonly string _database;
 
-        public DatabaseService(string connectionString, string database)
+        public DatabaseService(string connectionString, string database, MongoDatabaseSettings settings = null)
         {
             _client = new MongoClient(connectionString);
-            _database = database;
+            Instance = _client.GetDatabase(database, settings);
 
             RegisterConventions();
             RegisterMappingClasses();
@@ -31,7 +31,8 @@ namespace Persistence.MongoDB
             ConventionRegistry.Register("camelCase", pack, t => true);
         }
 
-        public IMongoDatabase GetInstance(MongoDatabaseSettings settings = null) => 
-            _client.GetDatabase(_database, settings);
+        public IMongoDatabase Instance { get; }
+
+        public IMongoCollection<T> GetCollection<T>() => Instance.GetCollection<T>(typeof(T).Name);
     }
 }
