@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
+using Persistence.MongoDB;
 using Serilog;
 
 namespace TruckManager.Api
@@ -23,7 +23,11 @@ namespace TruckManager.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var databaseSettings = Configuration.GetSection("Database");
-            var client = new MongoClient(databaseSettings["ConnectionString"]);
+            var databaseService = new DatabaseService(
+                    connectionString: databaseSettings["ConnectionString"],
+                    database: databaseSettings["DatabaseName"]
+            );
+
             services.Scan(scan => scan
                 .FromApplicationDependencies()
                 .AddClasses(classes => classes.Where(type => type.Name.Equals("QueryHandler")))
@@ -39,7 +43,7 @@ namespace TruckManager.Api
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 
-            services.AddScoped(x => client.GetDatabase(databaseSettings["DatabaseName"]));
+            services.AddScoped(x => databaseService.GetInstance());
             services.AddSingleton(x => Log.Logger);
         }
 
