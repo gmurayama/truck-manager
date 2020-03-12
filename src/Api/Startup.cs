@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +24,20 @@ namespace TruckManager.Api
 
             var databaseSettings = Configuration.GetSection("Database");
             var client = new MongoClient(databaseSettings["ConnectionString"]);
+            services.Scan(scan => scan
+                .FromApplicationDependencies()
+                .AddClasses(classes => classes.Where(type => type.Name.Equals("QueryHandler")))
+                    .AsSelf()
+                    .WithTransientLifetime()
+                .AddClasses(classes => classes.Where(type => type.Name.Equals("CommandHandler")))
+                    .AsSelf()
+                    .WithTransientLifetime()
+                .AddClasses(classes => classes.Where(type => type.Name.Equals("QueryValidator")))
+                    .AsSelf()
+                    .WithTransientLifetime()
+                .AddClasses(classes => classes.Where(type => type.Name.Equals("CommandValidator")))
+                    .AsImplementedInterfaces()
+                    .WithTransientLifetime());
 
             services.AddScoped(x => client.GetDatabase(databaseSettings["DatabaseName"]));
             services.AddSingleton(x => Log.Logger);
