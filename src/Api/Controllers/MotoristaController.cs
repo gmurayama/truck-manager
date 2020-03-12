@@ -21,6 +21,16 @@ namespace Api.Controllers
             return Ok(motorista);
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> AdicionarMotorista(
+            [FromBody] CadastrarMotorista.Command command,
+            [FromServices] CadastrarMotorista.CommandHandler handler)
+        {
+            var resolved = await handler.Handle(command);
+            return resolved.Match<IActionResult>(
+                Ok: () => Ok(),
+                Err: (err) => BadRequest(err)
+            );
+        }
     }
 }
