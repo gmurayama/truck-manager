@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Truckmanager.Domain;
+using TruckManager.Application.Features.Registros;
 using TruckManager.Application.Persistence;
 
 namespace TruckManager.Application.Features.Motoristas
@@ -13,10 +14,13 @@ namespace TruckManager.Application.Features.Motoristas
         public class CommandHandler
         {
             private readonly IMongoDBService _database;
+            private readonly RegistrarPassagemPeloTerminal.CommandHandler _registrarPassagemPeloTerminalHandler;
 
-            public CommandHandler(IMongoDBService database)
+            public CommandHandler(IMongoDBService database,
+                RegistrarPassagemPeloTerminal.CommandHandler registrarPassagemPeloTerminalHandler)
             {
                 _database = database;
+                _registrarPassagemPeloTerminalHandler = registrarPassagemPeloTerminalHandler;
             }
 
             public async Task<Resolved> Handle(Command command)
@@ -44,17 +48,16 @@ namespace TruckManager.Application.Features.Motoristas
 
                         await motoristaCollection.InsertOneAsync(motorista);
 
-                        var registro = new Registro
+                        var registrarPassagemPeloTerminalCommand = new RegistrarPassagemPeloTerminal.Command
                         {
                             MotoristaId = motorista.Id,
                             EstaCarregado = command.EstaCarregado,
-                            Origem = command.Origem,
-                            Destino = command.Destino,
                             TipoCaminhao = command.TipoCaminhao,
-                            Data = DateTime.Now
+                            Origem = command.Origem,
+                            Destino = command.Destino
                         };
 
-                        await registroCollection.InsertOneAsync(registro);
+                        await _registrarPassagemPeloTerminalHandler.Handle(registrarPassagemPeloTerminalCommand);
 
                         session.CommitTransaction();
 
