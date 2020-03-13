@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
     <PackageReference Include="MonadicResponseHandler" Version="1.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
   </ItemGroup>

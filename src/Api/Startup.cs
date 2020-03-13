@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using TruckManager.Persistence.MongoDB;
 using Serilog;
 using TruckManager.Application.Persistence;
+using TruckManager.Api.Filters;
+using FluentValidation.AspNetCore;
 
 namespace TruckManager.Api
 {
@@ -21,7 +23,13 @@ namespace TruckManager.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ValidateModelAttribute());
+                options.Filters.Add(new ErrorFormatResult());
+            })
+            .AddFluentValidation()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Scan(scan => scan
                 .FromApplicationDependencies()
