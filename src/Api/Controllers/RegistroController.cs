@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +19,19 @@ namespace TruckManager.Api.Controllers
         {
             await handler.Handle(command);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RecuperarListaDeRegistrosDoMotorista(
+            [FromQuery] RecuperarListaDeRegistrosDoMotorista.Query query,
+            [FromServices] RecuperarListaDeRegistrosDoMotorista.QueryHandler handler)
+        {
+            var registros = await handler.Handle(query);
+
+            if (registros.Count > 0)
+                return Ok(registros);
+            else
+                return NoContent();
         }
     }
 }
