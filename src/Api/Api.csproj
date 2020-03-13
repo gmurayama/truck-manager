@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <AssemblyName>TruckManager.Api</AssemblyName>
+    <RootNamespace>TruckManager.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

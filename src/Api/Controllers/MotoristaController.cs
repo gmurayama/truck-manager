@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TruckManager.Application.Features.Motoristas;
 
-namespace Api.Controllers
+namespace TruckManager.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]

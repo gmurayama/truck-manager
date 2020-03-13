@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
-using Persistence.MongoDB.Mapping;
 using TruckManager.Application.Persistence;
+using TruckManager.Persistence.MongoDB.Mapping;
 
-namespace Persistence.MongoDB
+namespace TruckManager.Persistence.MongoDB
 {
     public class DatabaseService : IMongoDBService
     {

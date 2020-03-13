@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.MongoDB;
+using TruckManager.Persistence.MongoDB;
 using Serilog;
 using TruckManager.Application.Persistence;
 

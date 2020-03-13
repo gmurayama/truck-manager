@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Persistence.MongoDB.Mapping
+namespace TruckManager.Persistence.MongoDB.Mapping
 {
     public class MappingMotorista
     {

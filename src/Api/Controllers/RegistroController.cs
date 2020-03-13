@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TruckManager.Application.Features.Registros;
 
-namespace Api.Controllers
+namespace TruckManager.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
