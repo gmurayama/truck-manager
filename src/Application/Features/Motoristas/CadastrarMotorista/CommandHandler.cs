@@ -32,7 +32,6 @@ namespace TruckManager.Application.Features.Motoristas
                         session.StartTransaction();
 
                         var motoristaCollection = _database.GetCollection<Motorista>();
-                        var registroCollection = _database.GetCollection<Registro>();
 
                         if (motoristaCollection.AsQueryable().Any(m => m.Cpf == command.Cpf))
                             return Resolved.ErrAsIEnumerable(new InvalidOperationException("Já existe um motorista cadastrado com esse CPF"));
