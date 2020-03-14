@@ -7,7 +7,7 @@ namespace TruckManager.Application.Features.Registros
 {
     public partial class RegistrarPassagemPeloTerminal
     {
-        public class CommandHandler
+        public class CommandHandler : IHandler<Command, Task>
         {
             private readonly IMongoDBService _database;
 

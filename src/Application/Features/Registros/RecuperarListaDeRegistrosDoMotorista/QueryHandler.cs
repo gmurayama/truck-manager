@@ -12,7 +12,7 @@ namespace TruckManager.Application.Features.Registros
 {
     public partial class RecuperarListaDeRegistrosDoMotorista
     {
-        public class QueryHandler
+        public class QueryHandler : IHandler<Query, Task<List<Registro>>>
         {
             private readonly IMongoDBService _database;
 

@@ -14,10 +14,10 @@ namespace TruckManager.Application.Features.Motoristas
         public class CommandHandler
         {
             private readonly IMongoDBService _database;
-            private readonly RegistrarPassagemPeloTerminal.CommandHandler _registrarPassagemPeloTerminalHandler;
+            private readonly IHandler<RegistrarPassagemPeloTerminal.Command, Task> _registrarPassagemPeloTerminalHandler;
 
             public CommandHandler(IMongoDBService database,
-                RegistrarPassagemPeloTerminal.CommandHandler registrarPassagemPeloTerminalHandler)
+                 IHandler<RegistrarPassagemPeloTerminal.Command, Task> registrarPassagemPeloTerminalHandler)
             {
                 _database = database;
                 _registrarPassagemPeloTerminalHandler = registrarPassagemPeloTerminalHandler;
