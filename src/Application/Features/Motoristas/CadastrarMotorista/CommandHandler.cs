@@ -1,4 +1,4 @@
-﻿using MonadicResponseHandler;
+using MonadicResponseHandler;
 using MongoDB.Driver;
 using System;
 using System.Linq;
@@ -29,12 +29,12 @@ namespace TruckManager.Application.Features.Motoristas
                 {
                     try
                     {
-                        session.StartTransaction();
-
                         var motoristaCollection = _database.GetCollection<Motorista>();
 
-                        if (motoristaCollection.AsQueryable().Any(m => m.Cpf == command.Cpf))
+                        if (_database.GetCollectionAsQueryable<Motorista>().Any(m => m.Cpf == command.Cpf))
                             return Resolved.ErrAsIEnumerable(new InvalidOperationException("Já existe um motorista cadastrado com esse CPF"));
+
+                        session.StartTransaction();
 
                         var motorista = new Motorista
                         {

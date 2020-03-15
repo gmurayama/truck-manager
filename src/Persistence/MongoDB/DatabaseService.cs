@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using TruckManager.Application.Persistence;
 using TruckManager.Persistence.MongoDB.Mapping;
 
@@ -34,5 +35,7 @@ namespace TruckManager.Persistence.MongoDB
         public IMongoDatabase Instance { get; }
 
         public IMongoCollection<T> GetCollection<T>() => Instance.GetCollection<T>(typeof(T).Name);
+
+        public IMongoQueryable<T> GetCollectionAsQueryable<T>() => Instance.GetCollection<T>(typeof(T).Name).AsQueryable();
     }
 }
