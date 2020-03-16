@@ -8,6 +8,11 @@ using Serilog;
 using TruckManager.Application.Persistence;
 using TruckManager.Api.Filters;
 using FluentValidation.AspNetCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
+using System;
+using Newtonsoft.Json;
 
 namespace TruckManager.Api
 {
@@ -28,8 +33,27 @@ namespace TruckManager.Api
                 options.Filters.Add(new ValidateModelAttribute());
                 options.Filters.Add(new ErrorFormatResult());
             })
+            .AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling =
+                    ReferenceLoopHandling.Ignore;
+            })
             .AddFluentValidation()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var enableSwagger = Configuration.GetValue<bool>("Swagger");
+
+            if (enableSwagger)
+            {
+                services.AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Truck Manager API", Version = "v1" });
+                    c.CustomSchemaIds((type) => type.FullName);
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    c.IncludeXmlComments(xmlPath);
+                });
+            }
 
             services.Scan(scan => scan
                 .FromApplicationDependencies()
@@ -72,6 +96,18 @@ namespace TruckManager.Api
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+
+            var enableSwagger = Configuration.GetValue<bool>("Swagger");
+
+            if (enableSwagger)
+            {
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Truck Manager V1");
+                });
             }
 
             app.UseSerilogRequestLogging();
