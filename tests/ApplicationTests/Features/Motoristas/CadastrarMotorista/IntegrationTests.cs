@@ -24,8 +24,16 @@ namespace ApplicationTests.Features.Motoristas.CadastrarMotorista
             var command = new Command 
             {
                 Cpf = "123.456.789-00",
-                Destino = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                Origem = new Local { Type = "Point", Coordinates = new double[] { 20, 20 } },
+                Destino = new Local
+                {
+                    Nome = "Local 1",
+                    Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } }
+                },
+                Origem = new Local
+                {
+                    Nome = "Local 2",
+                    Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 20, 20 } }
+                },
                 EstaCarregado = false,
                 Idade = 20,
                 Nome = "New Driver",
@@ -66,8 +74,8 @@ namespace ApplicationTests.Features.Motoristas.CadastrarMotorista
             var command = new Command
             {
                 Cpf = "123.456.789-00",
-                Destino = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                Origem = new Local { Type = "Point", Coordinates = new double[] { 20, 20 } },
+                Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } },
                 EstaCarregado = false,
                 Idade = 20,
                 Nome = "New Driver",

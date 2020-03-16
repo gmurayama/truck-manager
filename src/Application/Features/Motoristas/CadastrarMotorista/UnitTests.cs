@@ -65,8 +65,14 @@ namespace TruckManager.Application.Features.Motoristas
                 var command = new Command
                 {
                     Cpf = "123.456.789-12",
-                    Destino = new Local { Coordinates = new double[] { 10, 10 } },
-                    Origem = new Local { Coordinates = new double[] { 20, 20 } },
+                    Destino = new Local 
+                    {
+                        Localizacao = new Localizacao { Coordinates = new double[] { 10, 10 } }
+                    },
+                    Origem = new Local 
+                    {
+                        Localizacao = new Localizacao { Coordinates = new double[] { 20, 20 } }
+                    },
                     EstaCarregado = false,
                     Idade = 18,
                     Nome = "Test",
@@ -135,8 +141,14 @@ namespace TruckManager.Application.Features.Motoristas
                 var command = new Command
                 {
                     Cpf = "123.456.789-12",
-                    Destino = new Local { Coordinates = new double[] { 10, 10 } },
-                    Origem = new Local { Coordinates = new double[] { 20, 20 } },
+                    Destino = new Local
+                    {
+                        Localizacao = new Localizacao { Coordinates = new double[] { 10, 10 } }
+                    },
+                    Origem = new Local
+                    {
+                        Localizacao = new Localizacao { Coordinates = new double[] { 20, 20 } }
+                    },
                     EstaCarregado = false,
                     Idade = 18,
                     Nome = "Test",

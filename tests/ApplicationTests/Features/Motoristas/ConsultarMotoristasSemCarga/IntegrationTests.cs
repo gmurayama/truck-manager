@@ -35,8 +35,8 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                     Data = new DateTime(2020, 01, 01),
                     EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
-                    Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                    Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } }
                 },
                 new Registro
                 {
@@ -44,8 +44,8 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                     Data = new DateTime(2020, 03, 01),
                     EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
-                    Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                    Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } }
                 },
                 new Registro
                 {
@@ -53,8 +53,8 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                     Data = new DateTime(2020, 01, 01),
                     EstaCarregado = false,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
-                    Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                    Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } }
                 }
             };
 
@@ -98,8 +98,8 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                     Data = new DateTime(2020, 01, 01),
                     EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
-                    Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                    Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } }
                 },
                 new Registro
                 {
@@ -107,8 +107,8 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                     Data = new DateTime(2020, 01, 01),
                     EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
-                    Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                    Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } }
                 },
                 new Registro
                 {
@@ -116,8 +116,8 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                     Data = new DateTime(2020, 01, 01),
                     EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
-                    Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
-                    Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } }
                 }
             };
 

@@ -11,7 +11,7 @@ namespace TruckManager.Application.Features.Motoristas
 {
     public partial class CadastrarMotorista
     {
-        public class CommandHandler
+        public class CommandHandler : IHandler<Command, Task<Resolved>>
         {
             private readonly IMongoDBService _database;
             private readonly IHandler<RegistrarPassagemPeloTerminal.Command, Task> _registrarPassagemPeloTerminalHandler;
