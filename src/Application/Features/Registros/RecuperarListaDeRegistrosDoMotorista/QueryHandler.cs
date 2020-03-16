@@ -1,4 +1,4 @@
-﻿using MongoDB.Driver;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,6 @@ namespace TruckManager.Application.Features.Registros
             public Task<List<Registro>> Handle(Query query)
             {
                 var registroCollection = _database.GetCollection<Registro>();
-                var motoristaCollection = _database.GetCollection<Motorista>();
 
                 int page = query.Page ?? 1;
                 int pageSize = query.PageSize ?? 10;
