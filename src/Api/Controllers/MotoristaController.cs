@@ -61,11 +61,11 @@ namespace TruckManager.Api.Controllers
 
         [HttpGet]
         [Route("caminhoes-carregados")]
-        public IActionResult QuantidadeDeCaminhoesCarregados(
+        public async Task<IActionResult> QuantidadeDeCaminhoesCarregados(
             [FromQuery] ListarQuantidadeDeCaminhoesCarregados.Query query,
             [FromServices] ListarQuantidadeDeCaminhoesCarregados.QueryHandler handler)
         {
-            var quantidade = handler.Handle(query);
+            var quantidade = await handler.Handle(query);
             return Ok(quantidade);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
-using System.Linq;
+using MongoDB.Driver.Linq;
+using System.Threading.Tasks;
 using Truckmanager.Domain;
 using TruckManager.Application.Persistence;
 
@@ -7,7 +8,7 @@ namespace TruckManager.Application.Features.Motoristas
 {
     public partial class ListarQuantidadeDeCaminhoesCarregados
     {
-        public class QueryHandler : IHandler<Query, int>
+        public class QueryHandler : IHandler<Query, Task<int>>
         {
             private readonly IMongoDBService _database;
 
@@ -16,14 +17,13 @@ namespace TruckManager.Application.Features.Motoristas
                 _database = database;
             }
 
-            public int Handle(Query query)
+            public async Task<int> Handle(Query query)
             {
-                var registroCollection = _database.GetCollection<Registro>();
+                var registroCollection = _database.GetCollectionAsQueryable<Registro>();
 
-                var result = registroCollection
-                    .AsQueryable()
+                var result = await registroCollection
                     .Where(r => r.EstaCarregado && query.DataInicial <= r.Data && r.Data <= query.DataFinal)
-                    .Count();
+                    .CountAsync();
 
                 return result;
             }
