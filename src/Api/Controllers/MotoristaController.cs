@@ -44,5 +44,19 @@ namespace TruckManager.Api.Controllers
                 Err: (err) => BadRequest(err)
             );
         }
+
+        [HttpGet]
+        [Route("nao-possuem-carga")]
+        public async Task<IActionResult> ConsultarCaminhoesQueNaoPossuemCarga(
+            [FromQuery] ConsultarMotoristasSemCarga.Query query,
+            [FromServices] ConsultarMotoristasSemCarga.QueryHandler handler)
+        {
+            var result = await handler.Handle(query);
+
+            if (result.Count == 0)
+                return NoContent();
+
+            return Ok(result);
+        }
     }
 }
