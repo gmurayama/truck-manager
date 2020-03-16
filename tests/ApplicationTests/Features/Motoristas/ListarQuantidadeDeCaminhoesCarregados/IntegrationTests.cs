@@ -2,27 +2,26 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Truckmanager.Domain;
 using TruckManager.Persistence.MongoDB;
-using static TruckManager.Application.Features.Motoristas.ConsultarMotoristasSemCarga;
+using static TruckManager.Application.Features.Motoristas.ListarQuantidadeDeCaminhoesCarregados;
 
-namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
+namespace ApplicationTests.Features.Motoristas.ListarQuantidadeDeCaminhoesCarregados
 {
     [TestFixture]
     public class IntegrationTests
     {
         [Test]
-        public async Task QueryForNotLoadedDrivers_ReturnOneDriver()
+        public async Task AllTrucksWereLoaded_ReturnThree()
         {
             using var runner = MongoDbRunner.Start();
-            var database = new DatabaseService(runner.ConnectionString, "QueryForNotLoadedDrivers_ReturnOneDriver");
+            var database = new DatabaseService(runner.ConnectionString, "AllTrucksWereLoaded_ReturnThree");
             var motoristaCollection = database.GetCollection<Motorista>();
             var registroCollection = database.GetCollection<Registro>();
 
             var motoristas = new List<Motorista>()
-            { 
+            {
                 new Motorista { Id = "507f191e810c19729de860ea", Cpf = "123.456.789-00", Idade = 30, Nome = "Name", Sexo = Sexo.Masculino, TipoCnh = TipoCnh.A },
                 new Motorista { Id = "40af192e110d19029d986dea", Cpf = "321.654.987-00", Idade = 35, Nome = "Firstname Lastname", Sexo = Sexo.Feminino, TipoCnh = TipoCnh.B }
             };
@@ -41,7 +40,7 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                 new Registro
                 {
                     MotoristaId = "507f191e810c19729de860ea",
-                    Data = new DateTime(2020, 03, 01),
+                    Data = new DateTime(2020, 01, 01),
                     EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
                     Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
@@ -51,7 +50,7 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
                 {
                     MotoristaId = "40af192e110d19029d986dea",
                     Data = new DateTime(2020, 01, 01),
-                    EstaCarregado = false,
+                    EstaCarregado = true,
                     TipoCaminhao = TipoCaminhao.CaminhaoTruck,
                     Origem = new Local { Type = "Point", Coordinates = new double[] { 10, 10 } },
                     Destino = new Local { Type = "Point", Coordinates = new double[] { 15, 20 } }
@@ -70,17 +69,15 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
             };
 
             var handler = new QueryHandler(database);
-            var result = await handler.Handle(query);
-            Assert.AreEqual(1, result.Count);
-            Assert.AreEqual("40af192e110d19029d986dea", result[0].Motorista.Id);
-            Assert.AreEqual(1, result[0].Registros.Count());
+            var result = handler.Handle(query);
+            Assert.AreEqual(3, result);
         }
 
         [Test]
-        public async Task AllDriverWereLoaded_ReturnEmptyList()
+        public async Task QueryDateThatPossessNoRegisters_ReturnZero()
         {
             using var runner = MongoDbRunner.Start();
-            var database = new DatabaseService(runner.ConnectionString, "AllDriverWereLoaded_ReturnEmptyList");
+            var database = new DatabaseService(runner.ConnectionString, "QueryDateThatPossessNoRegisters_ReturnZero");
             var motoristaCollection = database.GetCollection<Motorista>();
             var registroCollection = database.GetCollection<Registro>();
 
@@ -128,13 +125,13 @@ namespace ApplicationTests.Features.Motoristas.ConsultarMotoristasSemCarga
 
             var query = new Query
             {
-                DataInicial = new DateTime(2020, 01, 01),
-                DataFinal = new DateTime(2020, 01, 02)
+                DataInicial = new DateTime(2021, 01, 01),
+                DataFinal = new DateTime(2021, 01, 02)
             };
 
             var handler = new QueryHandler(database);
-            var result = await handler.Handle(query);
-            Assert.AreEqual(0, result.Count);
+            var result = handler.Handle(query);
+            Assert.AreEqual(0, result);
         }
     }
 }
