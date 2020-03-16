@@ -16,83 +16,87 @@ namespace ApplicationTests.Features.Motoristas.CadastrarMotorista
         [Test]
         public async Task InsertNewDriver_Sucessfull()
         {
-            using var runner = MongoDbRunner.Start();
-            var database = new DatabaseService(runner.ConnectionString, "InsertNewDriver_Sucessfull");
-
-            var registroHandler = new RegistrarPassagemPeloTerminal.CommandHandler(database);
-
-            var command = new Command 
+            using (var runner = MongoDbRunner.Start())
             {
-                Cpf = "123.456.789-00",
-                Destino = new Local
+                var database = new DatabaseService(runner.ConnectionString, "InsertNewDriver_Sucessfull");
+
+                var registroHandler = new RegistrarPassagemPeloTerminal.CommandHandler(database);
+
+                var command = new Command
                 {
-                    Nome = "Local 1",
-                    Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } }
-                },
-                Origem = new Local
-                {
-                    Nome = "Local 2",
-                    Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 20, 20 } }
-                },
-                EstaCarregado = false,
-                Idade = 20,
-                Nome = "New Driver",
-                Sexo = Sexo.Masculino,
-                PossuiVeiculoProprio = true,
-                TipoCaminhao = TipoCaminhao.CaminhaoToco,
-                TipoCnh = TipoCnh.D
-            };
+                    Cpf = "123.456.789-00",
+                    Destino = new Local
+                    {
+                        Nome = "Local 1",
+                        Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } }
+                    },
+                    Origem = new Local
+                    {
+                        Nome = "Local 2",
+                        Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 20, 20 } }
+                    },
+                    EstaCarregado = false,
+                    Idade = 20,
+                    Nome = "New Driver",
+                    Sexo = Sexo.Masculino,
+                    PossuiVeiculoProprio = true,
+                    TipoCaminhao = TipoCaminhao.CaminhaoToco,
+                    TipoCnh = TipoCnh.D
+                };
 
-            var handler = new CommandHandler(database, registroHandler);
-            var resolved = await handler.Handle(command);
-            Assert.IsTrue(resolved.IsOk);
+                var handler = new CommandHandler(database, registroHandler);
+                var resolved = await handler.Handle(command);
+                Assert.IsTrue(resolved.IsOk);
 
-            var collection = database.GetCollectionAsQueryable<Motorista>();
-            var motorista = collection.SingleOrDefault(m => m.Cpf == "123.456.789-00");
+                var collection = database.GetCollectionAsQueryable<Motorista>();
+                var motorista = collection.SingleOrDefault(m => m.Cpf == "123.456.789-00");
 
-            Assert.IsNotNull(motorista);
-            Assert.AreEqual(command.Nome, motorista.Nome);
+                Assert.IsNotNull(motorista);
+                Assert.AreEqual(command.Nome, motorista.Nome);
+            }
         }
 
         [Test]
         public async Task InsertAlreadyExistingDriver_Err()
         {
-            using var runner = MongoDbRunner.Start();
-            var database = new DatabaseService(runner.ConnectionString, "InsertAlreadyExistingDriver_Err");
-            var collection = database.GetCollection<Motorista>();
-            await collection.InsertOneAsync(new Motorista
+            using (var runner = MongoDbRunner.Start())
             {
-                Id = "40af192e110d19029d986dea",
-                Cpf = "123.456.789-00",
-                Idade = 20,
-                Nome = "Firstname Lastname",
-                Sexo = Sexo.Feminino,
-                PossuiVeiculoProprio = true,
-                TipoCnh = TipoCnh.D
-            });
+                var database = new DatabaseService(runner.ConnectionString, "InsertAlreadyExistingDriver_Err");
+                var collection = database.GetCollection<Motorista>();
+                await collection.InsertOneAsync(new Motorista
+                {
+                    Id = "40af192e110d19029d986dea",
+                    Cpf = "123.456.789-00",
+                    Idade = 20,
+                    Nome = "Firstname Lastname",
+                    Sexo = Sexo.Feminino,
+                    PossuiVeiculoProprio = true,
+                    TipoCnh = TipoCnh.D
+                });
 
-            var registroHandler = new RegistrarPassagemPeloTerminal.CommandHandler(database);
+                var registroHandler = new RegistrarPassagemPeloTerminal.CommandHandler(database);
 
-            var command = new Command
-            {
-                Cpf = "123.456.789-00",
-                Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
-                Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } },
-                EstaCarregado = false,
-                Idade = 20,
-                Nome = "New Driver",
-                Sexo = Sexo.Masculino,
-                TipoCaminhao = TipoCaminhao.CaminhaoToco,
-                PossuiVeiculoProprio = true,
-                TipoCnh = TipoCnh.D
-            };
+                var command = new Command
+                {
+                    Cpf = "123.456.789-00",
+                    Origem = new Local { Nome = "Local 1", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 10, 10 } } },
+                    Destino = new Local { Nome = "Local 2", Localizacao = new Localizacao { Type = "Point", Coordinates = new double[] { 15, 25 } } },
+                    EstaCarregado = false,
+                    Idade = 20,
+                    Nome = "New Driver",
+                    Sexo = Sexo.Masculino,
+                    TipoCaminhao = TipoCaminhao.CaminhaoToco,
+                    PossuiVeiculoProprio = true,
+                    TipoCnh = TipoCnh.D
+                };
 
-            var handler = new CommandHandler(database, registroHandler);
-            var resolved = await handler.Handle(command);
-            Assert.IsTrue(resolved.IsErr);
+                var handler = new CommandHandler(database, registroHandler);
+                var resolved = await handler.Handle(command);
+                Assert.IsTrue(resolved.IsErr);
 
-            var count = database.GetCollectionAsQueryable<Registro>().Count();
-            Assert.AreEqual(0, count);
+                var count = database.GetCollectionAsQueryable<Registro>().Count();
+                Assert.AreEqual(0, count);
+            }
         }
     }
 }
