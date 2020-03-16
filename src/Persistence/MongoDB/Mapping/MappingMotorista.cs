@@ -10,14 +10,17 @@ namespace TruckManager.Persistence.MongoDB.Mapping
     {
         public MappingMotorista()
         {
-            BsonClassMap.RegisterClassMap<Motorista>(cm =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Motorista)))
             {
-                cm.AutoMap();
-                cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
-                cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
-                cm.MapMember(c => c.TipoCnh).SetSerializer(new EnumSerializer<TipoCnh>(BsonType.String));
-                cm.MapMember(c => c.Sexo).SetSerializer(new EnumSerializer<Sexo>(BsonType.String));
-            });
+                BsonClassMap.RegisterClassMap<Motorista>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
+                    cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
+                    cm.MapMember(c => c.TipoCnh).SetSerializer(new EnumSerializer<TipoCnh>(BsonType.String));
+                    cm.MapMember(c => c.Sexo).SetSerializer(new EnumSerializer<Sexo>(BsonType.String));
+                });
+            }
         }
     }
 }

@@ -10,13 +10,16 @@ namespace TruckManager.Persistence.MongoDB.Mapping
     {
         public MappingRegistro()
         {
-            BsonClassMap.RegisterClassMap<Registro>(cm =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Registro)))
             {
-                cm.AutoMap();
-                cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
-                cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
-                cm.MapMember(c => c.MotoristaId).SetSerializer(new StringSerializer(BsonType.ObjectId));
-            });
+                BsonClassMap.RegisterClassMap<Registro>(cm =>
+                {
+                    cm.AutoMap();
+                    cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
+                    cm.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
+                    cm.MapMember(c => c.MotoristaId).SetSerializer(new StringSerializer(BsonType.ObjectId));
+                });
+            }
         }
     }
 }
