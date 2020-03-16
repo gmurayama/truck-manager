@@ -58,5 +58,15 @@ namespace TruckManager.Api.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("caminhoes-carregados")]
+        public IActionResult QuantidadeDeCaminhoesCarregados(
+            [FromQuery] ListarQuantidadeDeCaminhoesCarregados.Query query,
+            [FromServices] ListarQuantidadeDeCaminhoesCarregados.QueryHandler handler)
+        {
+            var quantidade = handler.Handle(query);
+            return Ok(quantidade);
+        }
     }
 }
