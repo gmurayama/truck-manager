@@ -28,6 +28,10 @@ namespace TruckManager.Application.Features.Motoristas
                 RuleFor(x => x.Destino)
                     .NotEmpty()
                     .SetValidator(new LocalValidator());
+
+                RuleFor(x => x.PossuiVeiculoProprio)
+                    .NotEmpty()
+                        .WithMessage("Deve ser informado se o motorista possuí veículo próprio ou não");
             }
         }
 

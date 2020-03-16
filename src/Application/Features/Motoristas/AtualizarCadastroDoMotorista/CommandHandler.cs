@@ -31,6 +31,7 @@ namespace TruckManager.Application.Features.Motoristas
                 motorista.Sexo = command.Sexo;
                 motorista.Idade = command.Idade;
                 motorista.TipoCnh = command.TipoCnh;
+                motorista.PossuiVeiculoProprio = command.PossuiVeiculoProprio;
 
                 await collection.ReplaceOneAsync(m => m.Id == command.MotoristaId, motorista);
                 return Resolved.Ok();

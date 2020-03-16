@@ -42,7 +42,8 @@ namespace TruckManager.Application.Features.Motoristas
                             Idade = command.Idade,
                             Nome = command.Nome,
                             Sexo = command.Sexo,
-                            TipoCnh = command.TipoCnh
+                            TipoCnh = command.TipoCnh,
+                            PossuiVeiculoProprio = command.PossuiVeiculoProprio
                         };
 
                         await motoristaCollection.InsertOneAsync(motorista);

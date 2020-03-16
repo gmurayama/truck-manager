@@ -18,6 +18,8 @@ namespace TruckManager.Application.Features.Motoristas
 
             public TipoCaminhao TipoCaminhao { get; set; }
 
+            public bool PossuiVeiculoProprio { get; set; }
+
             public bool EstaCarregado { get; set; }
 
             public Local Origem { get; set; }

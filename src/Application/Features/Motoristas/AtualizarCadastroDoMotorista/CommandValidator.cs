@@ -23,6 +23,10 @@ namespace TruckManager.Application.Features.Motoristas
                 RuleFor(x => x.TipoCnh)
                     .NotEmpty()
                         .WithMessage("O tipo de CNH não pode ser vazio ou nulo");
+
+                RuleFor(x => x.PossuiVeiculoProprio)
+                    .NotEmpty()
+                        .WithMessage("Deve ser informado se o motorista possuí veículo próprio ou não");
             }
         }
     }

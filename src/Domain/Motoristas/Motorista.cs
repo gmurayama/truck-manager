@@ -6,6 +6,8 @@
 
         public string Nome { get; set; }
 
+        public bool PossuiVeiculoProprio { get; set; }
+
         public Sexo Sexo { get; set; }
 
         public int Idade { get; set; }

@@ -38,6 +38,7 @@ namespace ApplicationTests.Features.Motoristas.CadastrarMotorista
                 Idade = 20,
                 Nome = "New Driver",
                 Sexo = Sexo.Masculino,
+                PossuiVeiculoProprio = true,
                 TipoCaminhao = TipoCaminhao.CaminhaoToco,
                 TipoCnh = TipoCnh.D
             };
@@ -66,6 +67,7 @@ namespace ApplicationTests.Features.Motoristas.CadastrarMotorista
                 Idade = 20,
                 Nome = "Firstname Lastname",
                 Sexo = Sexo.Feminino,
+                PossuiVeiculoProprio = true,
                 TipoCnh = TipoCnh.D
             });
 
@@ -81,6 +83,7 @@ namespace ApplicationTests.Features.Motoristas.CadastrarMotorista
                 Nome = "New Driver",
                 Sexo = Sexo.Masculino,
                 TipoCaminhao = TipoCaminhao.CaminhaoToco,
+                PossuiVeiculoProprio = true,
                 TipoCnh = TipoCnh.D
             };
 
