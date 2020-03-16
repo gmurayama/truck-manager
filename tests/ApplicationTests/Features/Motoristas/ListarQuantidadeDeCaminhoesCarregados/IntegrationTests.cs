@@ -69,7 +69,7 @@ namespace ApplicationTests.Features.Motoristas.ListarQuantidadeDeCaminhoesCarreg
             };
 
             var handler = new QueryHandler(database);
-            var result = handler.Handle(query);
+            var result = await handler.Handle(query);
             Assert.AreEqual(3, result);
         }
 
@@ -130,7 +130,7 @@ namespace ApplicationTests.Features.Motoristas.ListarQuantidadeDeCaminhoesCarreg
             };
 
             var handler = new QueryHandler(database);
-            var result = handler.Handle(query);
+            var result = await handler.Handle(query);
             Assert.AreEqual(0, result);
         }
     }
