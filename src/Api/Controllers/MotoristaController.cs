@@ -32,5 +32,17 @@ namespace TruckManager.Api.Controllers
                 Err: (err) => BadRequest(err)
             );
         }
+
+        [HttpPut]
+        public async Task<IActionResult> AtualizarCadastroDoMotorista(
+            [FromBody] AtualizarCadastroDoMotorista.Command command,
+            [FromServices] AtualizarCadastroDoMotorista.CommandHandler handler)
+        {
+            var resolved = await handler.Handle(command);
+            return resolved.Match<IActionResult>(
+                Ok: () => Ok(),
+                Err: (err) => BadRequest(err)
+            );
+        }
     }
 }
