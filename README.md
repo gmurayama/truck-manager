@@ -7,10 +7,13 @@ API para gerenciar o cadastro e registro de motoristas ao passar pelo terminal.
 ## Pré-requisitos
 
 * [.NET Core SDK 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+* [MongoDB](https://www.mongodb.com/)
 
 ## Executar o projeto
 
 Por padrão, a aplicação escutará as requisições na porta **5000**. Para alterar, é necessário mudar a **applicationUrl** no **launchSettings.json** localizado no **src/Api/Properties**.
+
+A connection string do banco de dados está definida no arquivo **appsettings.json** (ou **appsettings.Development.json** se estiver em modo de desenvolvimento) na pasta **src/Api**.
 
 ```
 Hosting environment: Development
